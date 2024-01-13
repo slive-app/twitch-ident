@@ -25,7 +25,7 @@ const craftAuthHeaders = ({
   accessToken,
 }: AppOrUserAuthentication) => ({
   'Client-ID': clientId,
-  Authentication: `Bearer ${accessToken}`,
+  Authorization: `Bearer ${accessToken}`,
 });
 
 export const getChannelsAPI = async (
