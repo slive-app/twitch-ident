@@ -21,7 +21,7 @@
     "url": "git+https://github.com/slive-app/twitch-ident.git"
   },
   "dependencies": {
-    "node-fetch": "^2.7.0",
+    "node-fetch": "^3.3.2",
     "twitch-api-types": "^0.3.3"
   },
   "devDependencies": {
