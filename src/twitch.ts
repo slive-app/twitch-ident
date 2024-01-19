@@ -57,8 +57,8 @@ export const getUsersAPI = async (
 ) => {
   const idQs = id
     ? typeof id === 'string'
-      ? `user_id=${id}`
-      : id.reduce((p, c) => `${p}&user_id=${c}`, '').slice(1)
+      ? `id=${id}`
+      : id.reduce((p, c) => `${p}&id=${c}`, '').slice(1)
     : '';
 
   const loginQs = login
