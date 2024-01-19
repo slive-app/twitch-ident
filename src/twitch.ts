@@ -7,7 +7,6 @@ import {
   GetUsersResponse,
 } from 'twitch-api-types';
 
-import { clean } from './utils';
 import { AppOrUserAuthentication } from './types';
 
 const throwError = (endpoint: keyof typeof APIEndpoint, json: unknown) => {
@@ -32,16 +31,19 @@ export const getChannelsAPI = async (
   { broadcaster_id }: GetChannelInformationParams,
   authentication: AppOrUserAuthentication,
 ) => {
-  const qs = new URLSearchParams({
-    broadcaster_id:
-      typeof broadcaster_id === 'string'
-        ? broadcaster_id
-        : broadcaster_id.join('&'),
-  });
-  const response = await fetch(`${APIEndpoint.GetChannelInformation}?${qs}`, {
-    method: 'GET',
-    headers: craftAuthHeaders(authentication),
-  });
+  const boradcasterIdQs = broadcaster_id
+    ? typeof broadcaster_id === 'string'
+      ? `broadcaster_id=${broadcaster_id}`
+      : broadcaster_id.reduce((p, c) => `${p}&broadcaster_id=${c}`, '').slice(1)
+    : '';
+
+  const response = await fetch(
+    `${APIEndpoint.GetChannelInformation}?${boradcasterIdQs}`,
+    {
+      method: 'GET',
+      headers: craftAuthHeaders(authentication),
+    },
+  );
   const json = (await response.json()) as GetChannelEditorsResponse;
 
   if (!response.ok) throwError('GetChannelInformation', json);
@@ -53,13 +55,19 @@ export const getUsersAPI = async (
   { id, login }: GetUsersParams,
   authentication: AppOrUserAuthentication,
 ) => {
-  const qs = new URLSearchParams(
-    clean([
-      !!id && ['id', typeof id === 'string' ? id : id.join('&')],
-      !!login && ['login', typeof login === 'string' ? login : login.join('&')],
-    ]),
-  );
-  const response = await fetch(`${APIEndpoint.GetUsers}?${qs}`, {
+  const idQs = id
+    ? typeof id === 'string'
+      ? `user_id=${id}`
+      : id.reduce((p, c) => `${p}&user_id=${c}`, '').slice(1)
+    : '';
+
+  const loginQs = login
+    ? typeof login === 'string'
+      ? `login=${login}`
+      : login.reduce((p, c) => `${p}&login=${c}`, '').slice(1)
+    : '';
+
+  const response = await fetch(`${APIEndpoint.GetUsers}?${idQs}&${loginQs}`, {
     method: 'GET',
     headers: craftAuthHeaders(authentication),
   });
