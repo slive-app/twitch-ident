@@ -1,6 +1,6 @@
 {
   "name": "@sliveapp/twitch-ident",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Twitch Identity Helper Functions",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
