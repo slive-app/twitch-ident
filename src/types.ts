@@ -8,3 +8,8 @@ export interface AppOrUserAuthentication {
    */
   accessToken: string;
 }
+
+export interface TwitchIdentOptions {
+  clientId: string;
+  getAccessToken: () => Promise<string>;
+}
