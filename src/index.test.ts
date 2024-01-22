@@ -42,7 +42,7 @@ const revokeAccessToken = async () => {
     token: accessToken,
   });
 
-  await fetch('https://id.twitch.tv/oauth2/revoke', {
+  await fetch(OAuthEndpoints.Revoke, {
     method: 'post',
     body: qs,
     headers: {
