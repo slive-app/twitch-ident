@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "node-fetch": "^2.7.0",
-    "twitch-api-types": "^0.6.1"
+    "twitch-api-types": "^0.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",
